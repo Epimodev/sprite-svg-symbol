@@ -1,0 +1,77 @@
+const SVGSpriter = require('svg-sprite');
+
+/**
+ * Generate the symbol id of a svg from file name
+ * @param {string} defaultId - default id
+ * @param {File} file - vinyl file input
+ * @return {string} the symbol id
+ */
+function idGenerator(name, file) {
+  const fileName = file.basename;
+  const nbChar = fileName.length;
+  const nbCharWithoutExt = nbChar - 4;
+  const id = fileName.substr(0, nbCharWithoutExt);
+  return id;
+}
+
+// svg-sprite config to generate symbol ready to be injected in html body
+const config = {
+  shape: {
+    id: {
+      generator: idGenerator,
+    },
+  },
+  mode: {
+    symbol: {
+      inline: true,
+    },
+  },
+};
+
+/**
+ * Create a spriter which generate symbols
+ * @return SVGSpriter
+ */
+function createSymbolSpriter() {
+  return new SVGSpriter(config);
+}
+
+/**
+ * Generate a function which add a file in a spriter
+ * @param {SVGSpriter} spriter - spriter where to add file
+ * @return {addFileInSpriter~addFile}
+ */
+function addFileInSpriter(spriter) {
+  /**
+   * Add file
+   * @param {object} fileInfo
+   * @param {string} fileInfo.path
+   * @param {string} fileInfo.content
+   */
+  function addFile(fileInfo) {
+    spriter.add(fileInfo.path, null, fileInfo.content);
+  }
+  return addFile;
+}
+
+/**
+ * Compile svg files to a string
+ * @param {SVGSpriter} spriter - spriter which contain files to compile
+ * @return {Promise} promise with result as a string
+ */
+function compileSprite(spriter) {
+  return new Promise((resolve, reject) => {
+    spriter.compile((error, result) => {
+      if (error) return reject(error);
+
+      const { contents } = result.symbol.sprite;
+      return resolve(contents.toString('utf8'));
+    });
+  });
+}
+
+module.exports = {
+  createSymbolSpriter,
+  addFileInSpriter,
+  compileSprite,
+};

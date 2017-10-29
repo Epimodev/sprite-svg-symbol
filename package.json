@@ -1,0 +1,20 @@
+{
+  "name": "sprite-svg-symbol",
+  "version": "1.0.0",
+  "description": "Generate svg sprite from a directory which contains svg files",
+  "main": "src/index.js",
+  "author": "Frederic Godin",
+  "license": "MIT",
+  "scripts": {
+    "start": "node example/index.js"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "svg-sprite": "^1.3.7"
+  },
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
