@@ -1,6 +1,6 @@
 {
   "name": "sprite-svg-symbol",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate svg sprite from a directory which contains svg files",
   "main": "src/index.js",
   "author": "Frederic Godin",
