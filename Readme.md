@@ -11,6 +11,16 @@ yarn add sprite-svg-symbol
 npm install --save sprite-svg-symbol
 ```
 
+## Parameters
+
+#### dirPath: string  
+Path of the directory containing svg files to include in sprite
+
+#### rootAttributes: object  
+Attributes to add on svg element contaning symbols.
+It can be usefull if you need to add some aria attributes for accessibility.
+
+
 ## Exemple
 ```javascript
 const path = require('path');
@@ -18,8 +28,10 @@ const { generateSprite } = require('sprite-svg-symbol');
 
 const iconsPath = path.resolve(__dirname, 'icons');
 
-spriteSymbol.generateSprite(iconsPath)
+const attributes = { 'aria-hidden': true }
+
+spriteSymbol.generateSprite(iconsPath, attributes)
   .then(sprite => {
-    console.log(sprite); // <svg width="0" height="0" style="position:absolute"><symbol ...
+    console.log(sprite); // <svg aria-hidden="true" width="0" height="0" style="position:absolute"><symbol ...
   })
 ```
