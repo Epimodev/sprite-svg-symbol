@@ -14,25 +14,37 @@ function idGenerator(name, file) {
   return id;
 }
 
-// svg-sprite config to generate symbol ready to be injected in html body
-const config = {
-  shape: {
-    id: {
-      generator: idGenerator,
+/**
+ * Create config with symbol generator and root attributes
+ * @param {*} rootAttributes
+ * @param {object} rootAttributes attributes to add on svg element contaning symbols
+ * @return SVGSpriter config
+ */
+function getConfig(rootAttributes) {
+  return {
+    shape: {
+      id: {
+        generator: idGenerator,
+      },
     },
-  },
-  mode: {
-    symbol: {
-      inline: true,
+    mode: {
+      symbol: {
+        inline: true,
+      },
     },
-  },
-};
+    svg: {
+      rootAttributes,
+    },
+  };
+}
 
 /**
  * Create a spriter which generate symbols
+ * @param {object} rootAttributes attributes to add on svg element contaning symbols
  * @return SVGSpriter
  */
-function createSymbolSpriter() {
+function createSymbolSpriter(rootAttributes) {
+  const config = getConfig(rootAttributes);
   return new SVGSpriter(config);
 }
 

@@ -26,10 +26,11 @@ function createFileInfoObject(filePath) {
 /**
  * Generate svg sprite of a directory
  * @param {string} dirPath directory path where svg file are store
+ * @param {object} rootAttributes attributes to add on svg element contaning symbols
  * @return {Promise} promise which resolve result as a string
  */
-function generateSprite(dirPath) {
-  const spriter = createSymbolSpriter();
+function generateSprite(dirPath, rootAttributes = {}) {
+  const spriter = createSymbolSpriter(rootAttributes);
 
   return fse.readdir(dirPath)
     .then(filesName => filesName.filter(isSvgFileName))

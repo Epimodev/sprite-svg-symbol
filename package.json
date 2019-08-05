@@ -6,7 +6,8 @@
   "author": "Frederic Godin",
   "license": "MIT",
   "scripts": {
-    "start": "node example/index.js"
+    "start": "node example/index.js",
+    "lint": "eslint --ext .js,.jsx ./src"
   },
   "dependencies": {
     "fs-extra": "^7.0.1",
